@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const ShoppingCartContext = createContext();
 
@@ -21,6 +21,13 @@ export const ShoppingCartProvider = ({ children }) => {
 	// cart products
 	const [cartProducts, setCartProducts] = useState([]);
 
+	// Shopping cart:order
+	const [order, setOrder] = useState([]);
+
+	useEffect(() => {
+		setCount(cartProducts.length);
+	}, [cartProducts, count]);
+
 	return (
 		<ShoppingCartContext.Provider
 			value={{
@@ -36,6 +43,8 @@ export const ShoppingCartProvider = ({ children }) => {
 				isCheckoutSideMenuOpen,
 				openCheckoutSideMenu,
 				closeCheckoutSideMenu,
+				order,
+				setOrder,
 			}}>
 			{children}
 		</ShoppingCartContext.Provider>
