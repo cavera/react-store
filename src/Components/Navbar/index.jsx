@@ -4,7 +4,7 @@ import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { ShoppingCartContext } from "../../Context";
 
 const activeStyle = "underline underline-offset-4";
-const navStyle = (isActive) => {
+const navStyle = isActive => {
 	const myStyle = isActive ? activeStyle : "";
 	return myStyle;
 };
@@ -22,7 +22,7 @@ const NavEl = ({ name, to }) => {
 const Navbar = () => {
 	const context = useContext(ShoppingCartContext);
 	return (
-		<nav className='flex justify-between fixed top-0 left-0 right-0 z-10 w-full items-center bg-white h-12 py-5 px-8 text-sm font-light'>
+		<nav className='flex justify-between fixed top-0 left-0 right-0 z-10 w-full items-center h-12 py-5 px-8 text-sm font-light bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm'>
 			<ul className='flex items-center gap-3'>
 				<li className='font-semibold text-lg'>
 					<NavLink to='/'>Shopi</NavLink>
@@ -66,7 +66,7 @@ const Navbar = () => {
 				</li>
 			</ul>
 			<ul className='flex items-center gap-3'>
-				<li className='text-black/60'>cavera@gmail.com</li>
+				<li className='text-slate-800/60 dark:text-white/60'>cavera@gmail.com</li>
 				<li>
 					<NavEl
 						name={"My Orders"}

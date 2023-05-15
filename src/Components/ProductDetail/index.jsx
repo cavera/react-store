@@ -8,11 +8,11 @@ const ProductDetail = () => {
 
 	const { title, price, description, images } = context.productSelected;
 	return (
-		<aside className={`${context.isProductDetailOpen ? "flex" : "hidden"} product-detail flex-col fixed right-0 top-12 bottom-2 bg-white border border-black rounded-md p-6 overflow-y-auto`}>
+		<aside className={`${context.isProductDetailOpen ? "flex" : "hidden"} product-detail flex-col fixed right-0 top-12 bottom-2 bg-white dark:bg-slate-800 border border-black dark:border-slate-400 rounded-md p-6 overflow-y-auto`}>
 			<div className='flex justify-between items-center'>
 				<h2 className='text-xl font-medium'>Details</h2>
 				<XMarkIcon
-					className='w-6 h-6 text-black'
+					className='w-6 h-6'
 					onClick={context.closeProductDetail}
 				/>
 			</div>

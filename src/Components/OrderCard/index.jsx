@@ -7,7 +7,7 @@ const OrderCard = props => {
 	if (handleDelete) {
 		renderXMarkIcon = (
 			<TrashIcon
-				className='w-6 h-6 text-black cursor-pointer'
+				className='w-6 h-6  cursor-pointer'
 				onClick={() => handleDelete(id)}
 			/>
 		);

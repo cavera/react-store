@@ -2,8 +2,6 @@ import { useContext } from "react";
 import { ShoppingCartContext } from "../../Context";
 import OrderCard from "../../Components/OrderCard";
 
-const handleDelete = () => {};
-
 const MyOrder = () => {
 	const context = useContext(ShoppingCartContext);
 	const lastOrder = context.order?.slice(-1)[0];

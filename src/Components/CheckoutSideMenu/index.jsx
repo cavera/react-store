@@ -8,7 +8,7 @@ import "./styles.css";
 
 const CheckoutSideMenu = () => {
 	const context = useContext(ShoppingCartContext);
-	const sideMenuClases = `${context.isCheckoutSideMenuOpen ? "flex" : "hidden"} checkout-side-menu flex-col fixed right-0 top-12 bottom-2 bg-white border border-black rounded-md`;
+	const sideMenuClases = `${context.isCheckoutSideMenuOpen ? "flex" : "hidden"} checkout-side-menu flex-col fixed right-0 top-12 bottom-2 bg-white dark:bg-slate-800 border border-black dark:border-slate-200 rounded-md`;
 
 	const handleDelete = id => {
 		const filteredProducts = context.cartProducts.filter(product => product.id !== id);
@@ -33,7 +33,7 @@ const CheckoutSideMenu = () => {
 			<div className='flex justify-between items-center p-6'>
 				<h2 className='text-xl font-medium'>My Order</h2>
 				<XMarkIcon
-					className='w-6 h-6 text-black cursor-pointer'
+					className='w-6 h-6  cursor-pointer'
 					onClick={context.closeCheckoutSideMenu}
 				/>
 			</div>
@@ -57,7 +57,7 @@ const CheckoutSideMenu = () => {
 				<Link to='/my-orders/last'>
 					<button
 						onClick={() => handleCheckout()}
-						className='bg-black text-white w-full px-6 py-3 rounded-lg'>
+						className='bg-black dark:bg-slate-100 text-white dark:text-slate-800 w-full px-6 py-3 rounded-lg font-medium text-xl'>
 						Checkout
 					</button>
 				</Link>
