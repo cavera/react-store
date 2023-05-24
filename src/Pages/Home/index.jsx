@@ -1,11 +1,27 @@
-import { useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 import Card from "../../Components/Card";
 import ProductDetail from "../../Components/ProductDetail";
 import { ShoppingCartContext } from "../../Context";
 
 const Home = () => {
 	const { category } = useParams();
+
+	const [searchParams, setSearchParams] = useSearchParams();
+	const search = searchParams.get("search") || "";
+	console.log(search);
+	const handleChange = event => {
+		const { value } = event.target;
+		context.setSearchByTitle(value);
+		setSearchParams({ search: value });
+	};
+
+	useEffect(() => {
+		if (search?.length > 0) {
+			context.setSearchByTitle(search);
+		}
+	}, [search]);
+
 	let isCategoryView = category?.length > 0;
 
 	const context = useContext(ShoppingCartContext);
@@ -43,11 +59,6 @@ const Home = () => {
 		}
 	};
 
-	const handleChange = event => {
-		const { value } = event.target;
-		context.setSearchByTitle(value);
-	};
-
 	return (
 		<>
 			<div className='w-80 flex flex-col gap-3 p-6 items-center'>
@@ -56,6 +67,7 @@ const Home = () => {
 				{!isCategoryView && (
 					<input
 						type='text'
+						value={search || ""}
 						placeholder='Search your article'
 						className='border border-black dark:border-white/60 bg-transparent rounded-lg w-full p-4 focus:outline-none'
 						onChange={event => handleChange(event)}
