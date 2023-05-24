@@ -10,14 +10,15 @@ const MyOrder = () => {
 
 	const { id } = useParams();
 
-	// let index = currentPath.substring(currentPath.lastIndexOf("/") + 1);
+	console.log(id);
+
 	let index = currentPath.substring(currentPath.lastIndexOf("/") + 1);
 	let myOrder = {};
 
-	if (index === "last") {
+	if (index == "last") {
 		myOrder = context.order[context.order.length - 1];
 	} else {
-		myOrder = context.order[index];
+		myOrder = context.order[id];
 	}
 
 	let areOrders = context.order.length > 0;

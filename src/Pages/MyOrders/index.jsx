@@ -8,9 +8,9 @@ const MyOrders = () => {
 	const context = useContext(ShoppingCartContext);
 	console.log(context.order);
 	return (
-		<div className='w-80 relative'>
+		<div className='w-80 relative flex flex-col gap-2'>
 			<div className='flex justify-center'>
-				<h1>My Orders</h1>
+				<h1 className='font-medium text-xl'>My Orders</h1>
 			</div>
 			{context.order.map((orderItem, index) => {
 				return (
