@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { ShoppingCartContext } from "../../Context";
 import { PlusIcon, CheckIcon } from "@heroicons/react/24/outline";
 
@@ -38,7 +38,7 @@ const Card = ({ data }) => {
 	};
 
 	return (
-		<div className=' w-44 lg:w-56 h-56 lg:h-60 rounded-lg  '>
+		<div className={`rounded-lg transition-all ${context.isProductDetailOpen || context.isCheckoutSideMenuOpen ? "w-44 lg:w-44 h-44 lg:h-44" : "w-44 lg:w-56 h-56 lg:h-60"}`}>
 			<figure
 				onClick={() => showProduct(data)}
 				className='relative mb-2 w-full h-4/5 overflow-hidden cursor-pointer'>

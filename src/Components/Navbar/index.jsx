@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { ShoppingCartContext } from "../../Context";
 
@@ -35,58 +35,23 @@ const Navbar = () => {
 					/>
 				</li>
 
-				<li>
-					<NavEl
-						name={"Clothes"}
-						to={"/clothes"}
-					/>
-				</li>
-				<li>
-					<NavEl
-						name={"Electronics"}
-						to={"/electronics"}
-					/>
-				</li>
-				<li>
-					<NavEl
-						name={"Furniture"}
-						to={"/furniture"}
-					/>
-				</li>
-				<li>
-					<NavEl
-						name={"Toys"}
-						to={"/toys"}
-					/>
-				</li>
-				<li>
-					<NavEl
-						name={"Others"}
-						to={"/others"}
-					/>
-				</li>
-				<li>
-					<ul className='absolute left-0 top-14'>
-						{context.categoriesList.map((cat, index) => (
-							<li key={`${cat}${index}`}>
-								<NavEl
-									name={cat}
-									to={`/${cat.toLowerCase()}`}
-								/>
-							</li>
-						))}
-					</ul>
-				</li>
+				{context.categoriesList.map((cat, index) => (
+					<li key={`${cat}${index}`}>
+						<NavEl
+							name={cat}
+							to={`/${cat.toLowerCase()}`}
+						/>
+					</li>
+				))}
 			</ul>
 			<ul className='flex items-center gap-3'>
-				<li className='text-slate-800/60 dark:text-white/60'>cavera@gmail.com</li>
 				<li>
 					<NavEl
 						name={"My Orders"}
 						to={"/my-orders"}
 					/>
 				</li>
-				<li>
+				{/* <li>
 					<NavEl
 						name={"My Account"}
 						to={"/my-account"}
@@ -96,9 +61,12 @@ const Navbar = () => {
 					<NavEl
 						name={"Sign in"}
 						to={"/sign-in"}
+						
 					/>
-				</li>
-				<li className='flex items-center gap-2'>
+				</li> */}
+				<li
+					className='flex items-center gap-2 cursor-pointer'
+					onClick={() => context.openCheckoutSideMenu()}>
 					<ShoppingCartIcon className='w-4 h-4' />
 					{context.count}
 				</li>
@@ -108,3 +76,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+export { NavEl };

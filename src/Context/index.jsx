@@ -14,6 +14,7 @@ export const ShoppingCartProvider = ({ children }) => {
 			.then(response => response.json())
 			.then(data => {
 				setItems(data);
+				//raw method to filter only the names of the categories
 				const catList = data
 					.map(item => {
 						return item.category.name;
@@ -45,6 +46,8 @@ export const ShoppingCartProvider = ({ children }) => {
 
 		if (searchByCategory || searchByTitle) {
 			setFilteredItems(filterItems());
+		} else {
+			setFilteredItems(items);
 		}
 	}, [items, searchByCategory, searchByTitle]);
 
@@ -52,12 +55,18 @@ export const ShoppingCartProvider = ({ children }) => {
 	const [count, setCount] = useState(0);
 	//product detail open/close
 	const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
-	const openProductDetail = () => setIsProductDetailOpen(true);
+	const openProductDetail = () => {
+		setIsProductDetailOpen(true);
+		setIsCheckoutSideMenuOpen(false);
+	};
 	const closeProductDetail = () => setIsProductDetailOpen(false);
 
 	//checkout open/close
 	const [isCheckoutSideMenuOpen, setIsCheckoutSideMenuOpen] = useState(false);
-	const openCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(true);
+	const openCheckoutSideMenu = () => {
+		setIsCheckoutSideMenuOpen(true);
+		setIsProductDetailOpen(false);
+	};
 	const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false);
 
 	//prodct detail

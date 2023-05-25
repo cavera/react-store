@@ -8,7 +8,7 @@ import "./styles.css";
 
 const CheckoutSideMenu = () => {
 	const context = useContext(ShoppingCartContext);
-	const sideMenuClases = `${context.isCheckoutSideMenuOpen ? "flex" : "hidden"} checkout-side-menu flex-col fixed right-0 top-12 bottom-2 bg-white dark:bg-slate-800 border border-black dark:border-slate-200 rounded-md`;
+	const sideMenuClases = `${context.isCheckoutSideMenuOpen ? "flex" : "hidden"} flex checkout-side-menu flex-col fixed right-0 top-12 bottom-2 bg-white dark:bg-slate-800 border border-black dark:border-slate-200 rounded-md`;
 
 	const handleDelete = id => {
 		const filteredProducts = context.cartProducts.filter(product => product.id !== id);
