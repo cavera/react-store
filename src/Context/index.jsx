@@ -7,11 +7,24 @@ export const ShoppingCartProvider = ({ children }) => {
 	const API = "https://api.escuelajs.co/api/v1/products";
 	const [items, setItems] = useState(null);
 	const [filteredItems, setFilteredItems] = useState(null);
+	const [categoriesList, setCategoriesList] = useState([]);
 
 	useEffect(() => {
 		fetch(API)
 			.then(response => response.json())
-			.then(data => setItems(data));
+			.then(data => {
+				setItems(data);
+				const catList = data
+					.map(item => {
+						return item.category.name;
+					})
+					.reduce((prev, next) => {
+						prev = prev.includes(next) ? prev : [...prev, next];
+						return prev;
+					}, []);
+
+				setCategoriesList(catList);
+			});
 	}, []);
 
 	// Search by title
@@ -19,24 +32,21 @@ export const ShoppingCartProvider = ({ children }) => {
 	// Serach by category
 	const [searchByCategory, setSearchByCategory] = useState("");
 
-	const filteredItemsByTitle = (items, searchByTitle) => {
-		return items?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()));
-	};
-	const filteredItemsByCategory = (items, searchByCatergory) => {
-		return items?.filter(item => item.category.name.toLowerCase().includes(searchByCatergory.toLowerCase()));
-	};
-
 	useEffect(() => {
-		if (searchByTitle) {
-			setFilteredItems(filteredItemsByTitle(items, searchByTitle));
-		}
-	}, [items, searchByTitle]);
+		const filterItems = () => {
+			return items
+				?.filter(item => {
+					return item.category.name.toLowerCase().includes(searchByCategory.toLowerCase());
+				})
+				.filter(item => {
+					return item.title.toLowerCase().includes(searchByTitle.toLowerCase());
+				});
+		};
 
-	useEffect(() => {
-		if (searchByCategory) {
-			setFilteredItems(filteredItemsByCategory(items, searchByCategory));
+		if (searchByCategory || searchByTitle) {
+			setFilteredItems(filterItems());
 		}
-	}, [items, searchByCategory]);
+	}, [items, searchByCategory, searchByTitle]);
 
 	//shopping cart count
 	const [count, setCount] = useState(0);
@@ -61,13 +71,15 @@ export const ShoppingCartProvider = ({ children }) => {
 
 	useEffect(() => {
 		setCount(cartProducts.length);
-	}, [cartProducts, count]);
+	}, [cartProducts]);
 
 	return (
 		<ShoppingCartContext.Provider
 			value={{
 				items,
 				setItems,
+				categoriesList,
+				setCategoriesList,
 				searchByTitle,
 				setSearchByTitle,
 				searchByCategory,

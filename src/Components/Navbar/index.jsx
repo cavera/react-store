@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { ShoppingCartContext } from "../../Context";
 
@@ -21,8 +21,9 @@ const NavEl = ({ name, to }) => {
 
 const Navbar = () => {
 	const context = useContext(ShoppingCartContext);
+
 	return (
-		<nav className='flex justify-between fixed top-0 left-0 right-0 z-10 w-full items-center h-12 py-5 px-8 text-sm font-light bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm'>
+		<nav className='flex justify-between fixed top-0 left-0 right-0 z-10 w-full items-center h-12 py-5 px-8 text-sm font-light bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-b border-black dark:border-white/60'>
 			<ul className='flex items-center gap-3'>
 				<li className='font-semibold text-lg'>
 					<NavLink to='/'>Shopi</NavLink>
@@ -63,6 +64,18 @@ const Navbar = () => {
 						name={"Others"}
 						to={"/others"}
 					/>
+				</li>
+				<li>
+					<ul className='absolute left-0 top-14'>
+						{context.categoriesList.map((cat, index) => (
+							<li key={`${cat}${index}`}>
+								<NavEl
+									name={cat}
+									to={`/${cat.toLowerCase()}`}
+								/>
+							</li>
+						))}
+					</ul>
 				</li>
 			</ul>
 			<ul className='flex items-center gap-3'>
