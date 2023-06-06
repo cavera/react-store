@@ -19,19 +19,20 @@ const Card = ({ data }) => {
 
 	const renderIcon = id => {
 		const isInCart = context.cartProducts.filter(product => product.id === id).length > 0;
+		const iconClasses = "absolute top-0 right-0 grid place-items-center rounded-full w-6 h-6 m-1";
 
 		if (isInCart) {
 			return (
-				<div className='absolute top-0 right-0 grid place-items-center bg-black/60 rounded-full w-6 h-6 m-2'>
-					<CheckIcon className='w-4 h-4 text-white' />
+				<div className={`${iconClasses} bg-black/60`}>
+					<CheckIcon className={`w-4 h-4 text-white`} />
 				</div>
 			);
 		} else {
 			return (
 				<div
-					className='absolute top-0 right-0 grid place-items-center bg-white rounded-full w-6 h-6 m-2'
+					className={`${iconClasses} bg-white`}
 					onClick={event => addProductsToCart(event, data)}>
-					<PlusIcon className='w-4 h-4 text-black' />
+					<PlusIcon className={`w-4 h-4 text-slate-800`} />
 				</div>
 			);
 		}
@@ -44,7 +45,7 @@ const Card = ({ data }) => {
 				className='relative mb-2 w-full h-4/5 overflow-hidden cursor-pointer'>
 				<span className='absolute bottom-0 left-0 bg-white/80 rounded-lg text-black font-medium text-xs m-2 px-3 py-0.5'>{data?.category.name}</span>
 				<img
-					className='w-full h-full object-cover rounded-lg '
+					className='w-full h-full object-cover rounded-2xl '
 					src={data?.images[0]}
 					alt={data?.title}
 				/>

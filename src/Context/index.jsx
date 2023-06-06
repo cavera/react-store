@@ -2,12 +2,38 @@ import { createContext, useState, useEffect } from "react";
 
 export const ShoppingCartContext = createContext();
 
+export const initializeLocalStorage = () => {
+	const accountInLocalStorage = localStorage.getItem("account");
+	const signOutInLocalStorage = localStorage.getItem("sign-out");
+
+	let parsedAccount;
+	let parsedSignOut;
+
+	if (!accountInLocalStorage) {
+		localStorage.setItem("account", JSON.stringify({}));
+		parsedAccount = {};
+	} else {
+		parsedAccount = JSON.parse(accountInLocalStorage);
+	}
+	if (!signOutInLocalStorage) {
+		localStorage.setItem("sign-out", JSON.stringify(false));
+		parsedSignOut = false;
+	} else {
+		parsedSignOut = JSON.parse(signOutInLocalStorage);
+	}
+};
+
 export const ShoppingCartProvider = ({ children }) => {
 	//get Products
 	const API = "https://api.escuelajs.co/api/v1/products";
 	const [items, setItems] = useState(null);
 	const [filteredItems, setFilteredItems] = useState(null);
 	const [categoriesList, setCategoriesList] = useState([]);
+
+	// account
+	const [account, setAccount] = useState({});
+	// SignOut
+	const [signOut, setSignOut] = useState(false);
 
 	useEffect(() => {
 		fetch(API)
@@ -109,6 +135,10 @@ export const ShoppingCartProvider = ({ children }) => {
 				closeCheckoutSideMenu,
 				order,
 				setOrder,
+				account,
+				setAccount,
+				signOut,
+				setSignOut,
 			}}>
 			{children}
 		</ShoppingCartContext.Provider>
